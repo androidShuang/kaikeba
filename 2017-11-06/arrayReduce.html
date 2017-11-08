@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      let arr = [2,3,2,3,2,3,2,3,23];
+      let result = arr.reduce((temp,item,index) => {
+        return temp+item;
+      })
+      alert(result);
+      //求个平均值
+      let result2 = arr.reduce((temp, item,index) => {
+        if(index<arr.length-1){
+          return temp+item;
+        }else{
+          return (temp+item)/arr.length;
+        }
+      })
+
+      alert(result2);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

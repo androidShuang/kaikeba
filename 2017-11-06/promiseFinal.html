@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      Promise.all(
+      [
+        $.ajax({url:"http://127.0.0.1:8081/addUser",dataType:"json"}),
+        $.ajax({url:"http://127.0.0.1:8081/",dataType:"text"}),
+      ]
+    ).then((arr) => {alert("成功"+arr)},err=>{alert("失敗"+err)});
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

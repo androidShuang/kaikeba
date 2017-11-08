@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      let arr = [2,3,3,3,3,3,2,2,2];
+      function add(a,b,c){
+        return a+b+c;
+      }
+      alert(add(...arr));
+
+      //再来通过数组展开的数据拼接
+      let arr2 = [3,3,4,4,3,2,2,2];
+      let result = [...arr,...arr2];
+      alert(result);
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

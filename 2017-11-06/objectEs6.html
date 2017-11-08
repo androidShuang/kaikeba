@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      class User{
+        constructor(name,age){
+          this.name = name;
+          this.age = age;
+        }
+        login(){
+          alert("登录成功");
+        }
+      }
+      let user = new User("zhangsan","18");
+      user.login();
+
+      //下面来个集成
+      class VipUser extends User{
+        constructor(name,age,money){
+          super(name,age);
+          this.money = money;
+        }
+
+        recharge(money){
+          this.money = money;
+        }
+
+        showMoney(){
+          alert(this.money);
+        }
+
+      }
+      let vipuser = new VipUser("lisi","22",30);
+
+
+      //我们看一下vipuser是不是user的实例
+      alert(vipuser instanceof User);
+
+      vipuser.recharge(100);
+      vipuser.showMoney();
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

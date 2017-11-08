@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    //本地用Node创建一了服务
+      let p = new Promise((resolve,reject)=>{
+        $.ajax({
+          url: "http://127.0.0.1:8081/",
+          dataType: 'text',
+          success(arr){
+            resolve(arr);
+          },
+          error(err){
+            reject(err);
+          }
+        });
+      })
+
+      p.then((arr) => {
+        alert("成功請求=="+arr);
+      },
+        (err)=>{
+          alert("失敗了=="+err);
+        }
+    );
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

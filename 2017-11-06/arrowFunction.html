@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      //ES5函数定义
+      var add = function(a,b){
+        return a+b;
+      }
+
+      //箭头函数，直接return语句，可以省略大括号
+      var arrowAdd = (a,b)=>a+b;
+      // alert(add(1,3));
+      // alert(arrowAdd(1,2));
+
+      function show(fn){
+        alert(fn(1,2));
+      }
+
+      // show((a,b)=>a*b);
+      //如果不是直接return那么就要加上大括号，而且如果传入参数只有一个就不需要小括号了
+      let show2 = a=>{alert(a)};
+      show2(1);
+
+      //写个倒序排序
+      let arr = [1,2,6,3,32,33,22,64,26,90,31];
+      arr.sort((a,b)=>b-a);
+      alert(arr);
+
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
