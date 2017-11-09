@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+    // ========================================================
+      // function* show(){
+      //   alert("a");
+      //   yield "c";
+      //   return "b";
+      // }
+      // let s = show();
+      // let b = s.next();
+      // let e = s.next();
+      // console.log(b);
+      // console.log(e);
+    // ========================================================
+
+    function* show2(a,b){
+      let c = a+b;
+      let t = yield c+2;
+      // console.log(t);
+      let f = t+7;
+      return f;
+    }
+    let ss2 = show2(1,2);
+    let a = ss2.next();
+    let a2 = ss2.next(a.value);
+    console.log(a2);
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
