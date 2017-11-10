@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="sea.js"></script>
+    <title>Title</title>
+    <script>
+        //sea的模块化是按需加载,还有一个requirejs应该类似
+        //单模块，属性，无关联引用
+        seajs.use(["a.js","b.js"],function (modl,modl2) {
+            console.log(modl.a);
+            console.log(modl2.b);
+        })
+
+        //单模块，方法，无关联引用
+        seajs.use(["a.js"],function (modl) {
+            modl.show("1234567");
+        });
+
+        //多模块，方法，无关联引用
+        seajs.use(["b.js"],function (modl) {
+            modl.c = 100;
+            modl.a = 100;
+            modl.b = 100;
+            modl.add();
+        })
+
+        //多模块，方法，关联引用
+        seajs.use(["c.js"],function (modl) {
+            modl.show();
+        })
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

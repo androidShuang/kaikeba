@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./runner.js"></script>
+    <script src="./jquery.js"></script>
+    <script>
+
+        let pro = new Promise(function (resolve,reject) {
+            if(true){
+                resolve("1");
+            }else{
+                reject("0");
+            }
+        })
+
+        runner(function *(){
+            console.log('欢迎哈');
+
+            let arr=yield $.ajax({url: 'http://localhost:63342/2017-11-08/test.json', dataType: 'json'});
+
+            console.log('接收到了数组'+arr.name);
+
+            let json=yield pro;
+
+            console.log('json也读完了');
+
+            console.log(json);
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
