@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      //第一步创建xhr
+      let xhr = new XMLHttpRequest();
+//      console.log(xhr.readyState);    //0
+      //第二部打开链接
+//      xhr.open("GET","data/1.txt",true);
+//      xhr.open("GET","data/2.xml",true);
+      xhr.open("GET","data/3.json",true);
+//      console.log(xhr.readyState);    //1
+      //第三部发送请求
+      xhr.send();
+      console.log(xhr.readyState);    //1
+      //第四部接收
+      xhr.onreadystatechange = function(){
+//          console.log(xhr.readyState);    //2,3,4
+          console.log(xhr.status)
+        if(xhr.readyState==4&&xhr.status==200){
+//          console.log(xhr.responseText)
+//          console.log(xhr.responseXML.getElementsByTagName("tr"))
+//          console.log(eval('('+xhr.responseText+')'));
+          console.log(JSON.parse(xhr.responseText))
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
