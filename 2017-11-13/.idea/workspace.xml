@@ -193,7 +193,7 @@
     <property name="nodejs_interpreter_path" value="C:/work_tool/web_dev_tool/node/node" />
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/work/companyproject/healthyCloud" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../2017-11-15" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="7.9.0" />
@@ -365,12 +365,12 @@
       <updated>1510624926330</updated>
       <workItem from="1510624928271" duration="1000" />
       <workItem from="1510624937287" duration="14588000" />
-      <workItem from="1510794384359" duration="1813000" />
+      <workItem from="1510794384359" duration="1894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16402000" />
+    <option name="totallyTimeSpent" value="16483000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

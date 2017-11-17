@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery.js"></script>
+    <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
+    <style media="screen">
+        .mine {background:green}
+    </style>
+    <script>
+        $(document).ready(function () {
+            let cur_username = '';
+            let socket = io.connect("ws://localhost:8080");
+            socket.on("reg_ret",(code,message)=>{
+                if(code){
+                    alert("注册失败,"+message);
+                }else{
+                    alert("注册成功");
+                }
+            });
+            socket.on("login_ret",(code,message)=>{
+                if(code){
+                    alert("登录失败,"+message);
+                }else{
+                    cur_username = $("#user").val();
+                    alert("登录成功");
+                }
+            });
+
+            socket.on("sent_ret",(code,message)=>{
+                if(code){
+                    alert("发送失败,"+message);
+                }else{
+                    let oLi = document.createElement("li");
+                    let ta = $("#ta");
+                    oLi.className = "mine";
+                    oLi.innerHTML =`<h4>${cur_username}</h4><p>${ta.val()}</p>`;
+                    $("#content").append(oLi);
+                    $("#ta").value = '';
+                }
+            });
+
+            socket.on('message', (name, txt)=>{
+                let oLi=document.createElement('li');
+                let oUl = $("#content");
+                oLi.innerHTML=`<h4>${name}</h4><p>${txt}</p>`;
+                oUl.append(oLi);
+            });
+
+            $("#reg").click(function () {
+                socket.emit("reg",$("#user").val(),$("#pwd").val());
+            });
+            $("#login").click(function () {
+                socket.emit("login",$("#user").val(),$("#pwd").val());
+            });
+
+            $("#sent").click(function () {
+                socket.emit("sent",$("#ta").val());
+            });
+
+        })
+    </script>
+    <title>Title</title>
+</head>
+<body>
+username: <input type="text" id="user"><br>
+password: <input type="text" id="pwd"><br>
+<input type="submit" id="reg" value="注册">
+<input type="submit" id="login" value="登录"><br>
+<textarea name="tv" id="ta" cols="80" rows="10"></textarea><br>
+<input type="submit" id="sent" value="发送"><br>
+<ul id="content">
+
+</ul>
+</body>
+</html>

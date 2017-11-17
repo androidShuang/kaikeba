@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <script src="jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#reg").click(function () {
+                $.ajax(
+                    {
+                        url:"/reg",
+                        data:{user:$("#username").val(),pwd:$("#pwd").val()},
+                        dataType:"json",
+                        success(res){
+                            console.log(res)
+                            if(res.code){
+                                alert("注册失败,"+res.message);
+                            }else{
+                                alert("注册成功")
+                            }
+                        },
+                        error(err){
+                            console.log(err);
+                        }
+                    }
+                );
+            });
+            $("#login").click(function () {
+                    $.ajax({
+                        url:"/login",
+                        dataType:"json",
+                        data:{user:$("#username").val(),pwd:$("#pwd").val()},
+                        success(res){
+                            if(res.code){
+                                alert("登录失败,"+res.message);
+                            }else{
+                                alert("登录成功")
+                            }
+                        },
+                        err(err){
+                            console.log(err);
+                        }
+                    })
+            }
+            );
+        })
+
+
+    </script>
+</head>
+<body>
+    用户名: <input type="text" id="username"/><br>
+    密  码: <input type="text" id="pwd"/><br>
+    <input type="submit" value="注册" id="reg"/>
+    <input type="submit" value="登录" id="login"/>
+</body>
+</html>
