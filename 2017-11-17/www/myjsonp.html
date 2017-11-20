@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js" charset="utf-8"></script>
+    <script>
+        $.ajax({
+            url:"http://localhost:8081/",
+            dataType:"jsonp",
+            data:{a:11,b:99},
+            jsonp:"callback",
+            success(json){
+                alert("看看多少=="+json)
+            },
+            error(err){
+                alert("錯了")
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("btn1");
+            var file = document.getElementById("f1");
+            btn.onclick = function () {
+                var formdata = new FormData();
+                formdata.set("file",file);
+                var xhr = new XMLHttpRequest();
+                xhr.open("post","http://localhost/2.php",true);
+                xhr.upload.onload = function () {
+                    alert("上传完成")
+                };
+                xhr.upload.onprogress = function (ev) {
+                    console.log(ev.loaded,ev.total);
+                }
+                xhr.send(formdata);
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState==4){
+                        alert(xhr.status);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="file" id="f1">
+<input type="submit" id="btn1" value="提交">
+</body>
+</html>

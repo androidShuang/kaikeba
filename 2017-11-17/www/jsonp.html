@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function show(json) {
+            var ul1 = document.getElementById("ul1");
+            ul1.innerHTML = "";
+            json.s.forEach(str=>{
+                let li = document.createElement("li");
+                li.innerHTML = str;
+                ul1.appendChild(li);
+            })
+
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            var txt1 = document.getElementById("txt1");
+            txt1.oninput = function () {
+                var oS=document.createElement('script');
+                oS.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${txt1.value}&cb=show`;
+                document.head.appendChild(oS);
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="txt1">
+    <ul id="ul1">
+
+    </ul>
+</body>
+</html>
