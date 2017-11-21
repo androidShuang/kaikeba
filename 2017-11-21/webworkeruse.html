@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let count = document.getElementById("count");
+            let result = document.getElementById("result");
+            let stop = document.getElementById("stop");
+            let w;
+            count.onclick = function () {
+                if(typeof(Worker) !== "undefined"){
+                    if(typeof(w) === "undefined"){
+                        w = new Worker("./workerjs.js");
+                        w.onmessage = function (event) {
+                            result.innerHTML = event.data;
+                        }
+                    }
+                }
+            }
+
+            stop.onclick = function () {
+                if(typeof w!=="undefined"){
+                    w.terminate();
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<p id="result"></p>
+<input type="submit" id="count" value="后台进行计算">
+<input type="submit" id="stop" value="停止后台进行计算">
+</body>
+</html>

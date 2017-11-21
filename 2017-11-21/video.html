@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style media="screen">
+        .box {
+            width: 500px;
+            height: 20px;
+            background:gray;
+            margin-bottom: 10px;
+        }
+
+        /*.box {width:500px; background:#eee; height:20px;}*/
+        .box .child {
+            background: greenyellow;
+            width: 0px;
+            height: 20px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let v = document.getElementById("v");
+            let pasue = document.getElementById("pause");
+            let play = document.getElementById("play");
+            let oChild=document.querySelector('.child');
+            pasue.onclick = function () {
+                v.pause();
+            }
+            play.onclick = function () {
+                v.play();
+            }
+
+            v.addEventListener("timeupdate",function () {
+                oChild.style.width = parseInt(100*v.currentTime/v.duration)+'%';
+            },false)
+
+        }
+    </script>
+</head>
+<body>
+<!--<input type="submit" id="pause" value="pause">-->
+<!--<input type="submit" id="pause" value="pause">-->
+<div class="box">
+    <div class="child">
+    </div>
+</div>
+    <video id="v" src="https://vd1.bdstatic.com/mda-hjmhaxk5y6zh8vxm/mda-hjmhaxk5y6zh8vxm.mp4" controls ></video>
+<br>
+<input type="submit" id="pause" value="pause"><br>
+<input type="submit" id="play" value="play"><br>
+</body>
+</html>

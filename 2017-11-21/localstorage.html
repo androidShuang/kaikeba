@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        localStorage.setItem("test","zhangsan");
+        localStorage.b = "lisi";
+        delete localStorage.b;
+        localStorage.removeItem("test");
+        sessionStorage.setItem("c","cccc");
+        delete sessionStorage.c;
+        let obj = {
+            name:"zhangsan",
+            age:"12"
+        }
+        localStorage.obj = JSON.stringify(obj);
+        alert(JSON.parse(localStorage.obj).age);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
