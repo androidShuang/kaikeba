@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style media="screen" type="text/css">
+        div {
+            background: gray;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById("drag");
+            var i = document.getElementById("i");
+            oDiv.addEventListener("dragenter",function (event) {
+                oDiv.innerHTML = "松手"
+            },false);
+            oDiv.addEventListener("dragleave",function (event) {
+                oDiv.innerHTML = "拖拽至此松手"
+            },false);
+            oDiv.addEventListener("dragover",function (event) {
+                event.preventDefault();
+                console.log("悬停中");
+            },false);
+            oDiv.addEventListener("drop",function (event) {
+                event.preventDefault();
+                console.log("撒手了");
+                let file = event.dataTransfer.files[0];
+                let reader = new FileReader();
+                reader.onload = function () {
+                    console.log(this.result.length);
+//                    i.src = this.result;
+                }
+
+                reader.onerror = function () {
+                    console.log("出错了");
+
+                }
+
+//                reader.readAsDataURL(file);
+//                reader.readAsBinaryString(file)
+//                reader.readAsText(file);
+
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+    <div id="drag">
+        拖拽至此松手
+    </div>
+    <image id="i">
+
+    </image>
+</body>
+</html>

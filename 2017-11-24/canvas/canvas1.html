@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let oCa = document.getElementById("ca");
+            let gd = oCa.getContext("2d");
+            gd.beginPath();
+            gd.moveTo(400,200);
+            gd.lineTo(550,450);
+            gd.lineTo(200,450);
+            gd.closePath();
+
+            gd.strokeStyle = "red";
+            gd.stroke();
+
+//            gd.fillStyle = "blue";
+//            gd.fillStyle='rgba(255, 255, 0, 0.3)';
+//            gd.fill();
+
+
+            gd.beginPath();
+            gd.moveTo(500,20);
+            gd.lineTo(500,200);
+            gd.moveTo(400,20);
+            gd.lineTo(400,200);
+            gd.lineWidth = 20
+            gd.strokeStyle = "green";
+            gd.stroke();
+
+        }
+    </script>
+</head>
+<body style="background: black;text-align: center">
+    <canvas width="800" height="600" id="ca" style="background: gray">
+        您的浏览器并不支持canvas，请<a href="http://chrome.google.com/">下载最新版浏览器</a>
+    </canvas>
+</body>
+</html>

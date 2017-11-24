@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let oCa = document.getElementById("ca");
+            let gd = oCa.getContext("2d");
+
+            //degree -> arc
+            function d2a(n){
+                return n*Math.PI/180;
+            }
+
+            //arc -> degree
+            function a2d(n){
+                return n*180/Math.PI;
+            }
+
+            let cx=400,cy=300,r=150;
+            let startAng=30,endAng=70;
+
+//            gd.beginPath();
+//            gd.rect(100,100,200,400);
+//
+//            gd.strokeStyle = "red";
+//            gd.stroke();
+//
+//            gd.fillStyle = "blue";
+//            gd.fill();
+//
+//            gd.beginPath();
+//            gd.moveTo(400,400);
+//            gd.arc(400,400,100,0,600,false);
+//            gd.arc(400,400,100,0*Math.PI/180, 90*Math.PI/180,false);
+
+
+//            gd.closePath();
+//            gd.stroke();
+            function pie(startAng,endAng,color){
+                gd.beginPath();
+                let x = cx+Math.sin(d2a(startAng))*r;
+                let y = cy-Math.cos(d2a(startAng))*r;
+
+                gd.moveTo(cx,cy);
+                gd.lineTo(x,y);
+
+                gd.arc(cx,cy,r,d2a(startAng-90), d2a(endAng-90),false);
+                gd.closePath();
+
+                gd.strokeStyle = "red";
+                gd.stroke();
+                gd.fillStyle = color;
+                gd.fill();
+            }
+            //1.数据
+            let data=[581, 273, 1750, 201];
+            let colors=['#CF0', '#C0F', '#CFC', '#0CF'];
+
+            //2.总和
+            let sum=data.reduce((tmp,item,index)=>tmp+item);
+
+            //3.数据占比->角度占比
+            let angs=data.map(item=>360*item/sum);
+
+            //4.画——以上一个pie的结束角作为，下一个pie的开始
+            let last=0;
+
+            angs.forEach((ang, index)=>{
+                pie(last, last+ang, colors[index]);
+
+                last+=ang;
+            });
+        }
+    </script>
+</head>
+<body style="background: black;text-align: center">
+<canvas width="800" height="600" id="ca" style="background: gray">
+    您的浏览器并不支持canvas，请<a href="http://chrome.google.com/">下载最新版浏览器</a>
+</canvas>
+</body>
+</html>
