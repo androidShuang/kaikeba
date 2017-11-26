@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css" media="screen">
+
+        #ca {
+            background: white;
+        }
+
+    </style>
+
+    <script>
+        window.onload = function () {
+            let oCa = document.getElementById("ca");
+            let draw = oCa.getContext("2d");
+//            draw.clearRect(0,0,oCa.width,oCa.height);
+            draw.strokeStyle = "green";
+            draw.strokeRect(10,10,50,30);
+
+            let i = 10;
+            let a =setInterval(function () {
+                draw.clearRect(0,0,oCa.width,oCa.height);
+                i+=5;
+                draw.strokeRect(i,10,50,30);
+                if(i==100) {
+                    clearInterval(a)
+                }
+            },16);
+            console.log(a);
+            console.log(i);
+        }
+    </script>
+
+</head>
+<body style="background: black;text-align: center">
+
+    <canvas id="ca" width="800" height="600"></canvas>
+
+</body>
+</html>
