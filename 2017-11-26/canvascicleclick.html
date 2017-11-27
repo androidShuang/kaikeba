@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let ca = document.getElementById("ca");
+            let gd = ca.getContext("2d");
+            let r = 100;
+            let cx = ca.width/2;
+            let cy = ca.height/2;
+
+            gd.beginPath();
+//            gd.strokeStyle = "red";
+//            gd.arc(cx,cy,r,0,2*Math.PI,true);
+            gd.stroke();
+
+            ca.onmousemove = function (ev) {
+                gd.beginPath();
+                a = ev.offsetX -cx;
+                b = ev.offsetY -cy;
+                let dis=Math.sqrt(a*a+b*b);
+                if(dis<r){
+                    gd.strokeStyle = "red";
+                    gd.arc(cx,cy,r,0,2*Math.PI,true);
+                    gd.stroke();
+                }else{
+                    gd.strokeStyle = "blue";
+                    gd.arc(cx,cy,r,0,2*Math.PI,true);
+                    gd.stroke();
+                }
+            }
+
+
+        }
+    </script>
+</head>
+<body style="background: black;text-align: center">
+    <canvas width="400" height="300" style="background: white" id="ca"></canvas>
+</body>
+</html>

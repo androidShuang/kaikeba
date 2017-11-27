@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let ca = document.getElementById("ca");
+            let gd = ca.getContext("2d");
+
+            function d2a(n){
+                return n*Math.PI/180;
+            }
+            function a2d(n){
+                return n*180/Math.PI;
+            }
+
+            gd.strokeRect(300,150,200,100);
+
+            let a = 0;
+            setInterval(function () {
+                gd.clearRect(0,0,ca.width,ca.height);
+                gd.save();
+                a++;
+                gd.translate(300,150);
+                gd.rotate(d2a(a));
+                gd.strokeRect(-150,-75,200,100);
+                gd.restore();
+            },16);
+        }
+    </script>
+</head>
+<body style="background: black;text-align: center">
+    <canvas width="800" height="600" id="ca" style="background: white"></canvas>
+</body>
+</html>

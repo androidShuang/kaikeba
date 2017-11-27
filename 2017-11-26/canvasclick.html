@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let ca = document.getElementById("ca");
+            let gd = ca.getContext("2d");
+            let l=50,r=50,t=50,b=50;
+            ca.onclick = function (ev) {
+                if(ev.offsetX>l&&ev.offsetY>t&&ev.offsetX<ca.width-50&&ev.offsetY<ca.height-50){
+                    alert("在点击范围内");
+                }else{
+                    alert("不在点击范围内");
+                }
+            }
+
+
+            ca.onmousemove = function (ev) {
+                gd.clearRect(0,0,ca.width,ca.height);
+                if(ev.offsetX>l&&ev.offsetY>t&&ev.offsetX<ca.width-50&&ev.offsetY<ca.height-50){
+                    gd.fillStyle = "blue";
+                    gd.fillRect(l,r,ca.width-100,ca.height-100)
+                }else{
+                    gd.strokeStyle = "green";
+                    gd.strokeRect(l,r,ca.width-100,ca.height-100)
+                }
+
+            }
+
+        }
+    </script>
+</head>
+<body style="background: black;text-align: center">
+    <canvas width="400" height="200" style="background: white" id="ca"></canvas>
+</body>
+</html>
