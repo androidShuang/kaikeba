@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: black;
+            text-align: center;
+        }
+        #ca{
+            background: white;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            let ca = document.getElementById("ca");
+            let dg = ca.getContext("2d");
+            let image = new Image();
+            image.src = "sprit1.jpg";
+            image.onload = function () {
+                let frame = 0;
+                let dir = 'd';
+                let x = 200;
+                let y = 300;
+                const speed = 15;
+
+
+                let timeIn = setInterval(function(){
+                    dg.clearRect(0,0,ca.width,ca.height);
+                    let rows={'d': 0, 'l': 1, 'r': 2, 'u': 3};
+                    dg.drawImage(
+                        image,
+                        84+27*frame, 28*rows[dir], 25, 28,
+                        x, y, 25*2, 28*2
+                    );
+
+                    switch(dir){
+                    case 'l':
+                    x-=speed;
+                    break;
+                    case 'r':
+                    x+=speed;
+                    break;
+                    case 'u':
+                    y-=speed;
+                    break;
+                    case 'd':
+                    y+=speed;
+                    break;
+                }
+
+                frame++;
+
+                if(frame==3){
+                    frame=0;
+                }
+                },100);
+
+                document.onkeydown = function (ev) {
+                    let keys ={37: 'l', 38: 'u', 39: 'r', 40: 'd'};
+                    dir = keys[ev.keyCode]||dir;
+                }
+
+               
+                
+            }
+        }
+    </script>
+
+</head>
+<body>
+        <canvas id="ca" width="800" height="600"></canvas>
+</body>
+</html>
