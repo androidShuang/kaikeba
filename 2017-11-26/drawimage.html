@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: black;
+            text-align: center;
+        }
+        #ca{
+            background: white;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let ca = document.getElementById("ca");
+            let gd = ca.getContext("2d");
+            let img = new Image();
+            img.src = "sprit1.jpg";
+//            img.src = "bd_logo.png";
+//            img.onload = function () {
+//                gd.drawImage(img,30,20);
+//            }
+
+            img.onload = function () {
+                gd.drawImage(img,
+                    87,82,21,26,
+                    150,150,21,26
+                )
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <canvas width="800" height="600" id="ca"></canvas>
+</body>
+</html>
