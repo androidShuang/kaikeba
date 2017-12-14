@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: #CCC;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+
+    <script>
+        window.onload = function(){
+            let oBox = document.getElementsByClassName("box")[0];
+            oBox.addEventListener('touchstart',function(ev){
+                let disX = ev.targetTouches[0].pageX-oBox.offsetLeft;
+                let disY = ev.targetTouches[0].pageY-oBox.offsetTop;
+
+                ev.cancelBubble = true;
+                ev.preventDefault();
+
+                function move(ev){
+                    oBox.style.left=ev.targetTouches[0].pageX-disX+"px";
+                    oBox.style.top=ev.targetTouches[0].pageY-disY+"px";
+                }
+
+                function end(){
+                    oBox.removeEventListener("touchmove",move,false);
+                    oBox.removeEventListener("touchend",end,false);
+                }
+
+                oBox.addEventListener("touchmove",move,false);
+                oBox.addEventListener("touchend",end,false);
+
+            },false)
+        }
+    </script>
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>

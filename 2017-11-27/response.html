@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+
+        *{
+            margin: 0;padding: 0;list-style: none
+        }
+
+        #aside{
+            height: 250px;
+            position: fixed;
+            left: 0;
+            top: 50%;
+            margin-top: -125px;
+        }
+        #aside li{
+            height: 50px;
+            width: 100px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            transition: 0.3s all ease;
+        }
+        
+        #aside li:hover{
+            width: 150px;
+        }
+
+        #aside li.b1 {background:#3b5998}
+        #aside li.b2 {background:#1da1f1}
+        #aside li.b3 {background:#db4e41}
+        #aside li.b4 {background:#6383a8}
+        #aside li.b5 {background:#fe6550}
+
+        
+        @media (max-width:1024px){
+            #aside{
+                height: 50px;
+                display: flex;
+                width: 100%;
+                bottom: 0;
+                top: auto;
+                margin-top: 0px;
+            }
+            #aside li{
+                flex: 1;
+                width: auto;
+            }
+            #aside li:hover {
+                width:auto;
+            }
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <ul id="aside">
+        <li class="b1">Facebook</li>
+        <li class="b2">Twitter</li>
+        <li class="b3">Google+</li>
+        <li class="b4">vk</li>
+        <li class="b5">other</li>
+    </ul>
+</body>
+</html>
