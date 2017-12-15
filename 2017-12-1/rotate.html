@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .box{
+            width: 200px;
+            height: 100px;
+            background: yellow;
+            text-align: center;
+            line-height: 100px;
+            margin: 100px auto 0;
+            transform: rotate(12deg);
+        }
+        
+    </style>
+
+    <script src="http://www.awesomekick.com:9900/socket.io/socket.io.js" charset="urf-8"></script>
+    <!-- <script src="http://10.6.21.116:9900/socket.io/socket.io.js" charset="urf-8"></script> -->
+
+    <script>
+        // let socket = io.connect("ws://10.6.21.116:9900");
+        let socket = io.connect("ws://www.awesomekick.com:9900");
+        window.console = window.console||{};
+        console._log = console.log;
+        console.log = function(...arg){
+            console._log(...arg);
+            socket.emit("log",...arg);
+        }
+        
+        window.onload = function(){
+            let box = document.querySelector(".box");
+            let old_arg = 0;
+            box.addEventListener("touchstart",function(ev){
+
+               if(ev.targetTouches.length>=2){
+                
+                let firstA = ev.targetTouches[0].clientX-ev.targetTouches[1].clientX;
+                let firstB = ev.targetTouches[0].clientY-ev.targetTouches[1].clientY;
+
+                let start_arg = Math.atan2(firstB,firstA)*180/Math.PI;
+                let strarg = old_arg;
+                console.log(start_arg);
+                ev.preventDefault();
+
+                function fnMove(ev){
+                    if(ev.targetTouches.length>=2){
+                        let moveA = ev.targetTouches[0].clientX-ev.targetTouches[1].clientX;
+                        let moveB = ev.targetTouches[0].clientY-ev.targetTouches[1].clientY;
+                        let move_arg = Math.atan2(moveB,moveA)*180/Math.PI;
+                        old_arg = strarg+move_arg-start_arg;      
+                        
+                        box.style.transform=`rotate(${old_arg}deg)`; 
+
+                        console.log(move_arg);
+
+                    }
+
+                    ev.preventDefault();
+                    
+
+                }
+
+                function fnEnd(ev){
+                    box.removeEventListener("touchmove",fnMove,false);
+                    box.removeEventListener("touchend",fnEnd,false);
+                }
+
+                box.addEventListener("touchmove",fnMove,false);
+                box.addEventListener("touchend",fnEnd,false);
+               }
+            },false)
+        }
+
+    </script>
+
+    <title>Document</title>
+
+</head>
+<body>
+    <div class="box">这里就是文字区域</div>
+</body>
+</html>

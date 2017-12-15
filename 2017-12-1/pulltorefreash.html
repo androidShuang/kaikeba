@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        html {
+            font-size: 20px;
+        }
+
+        #banner {
+            width: 25rem;
+            height: 7.8rem;
+            overflow: hidden;
+        }
+
+        #banner ul {
+            width: 9999rem;
+            transform: translateX(0px);
+        }
+
+        #banner li {
+            width: 25rem;
+            height: 7.9rem;
+            float: left;
+            line-height: 7.8rem;
+            text-align: center;
+        }
+
+        #wrap {
+            background: #CCC;
+        }
+
+        #content {
+            background: #fff;
+            transform: translateY(0px);
+        }
+    </style>
+    <title>Document</title>
+    <script>
+        //rem
+        document.documentElement.style.fontSize = document.documentElement.clientWidth * 20 / 500 + 'px';
+
+        let banner = document.getElementById('banner');
+        let banner_ul = banner.children[0];
+        let content = document.getElementById("content");
+
+        let banner_left = 0;
+        let content_top = 0;
+
+        // banner.addEventListener()
+
+    </script>
+</head>
+
+<body>
+    <div id="warp">
+        <div id="content">
+            <div id="banner">
+                <ul>
+                    <li style="background:#FC0;">1</li>
+                    <li style="background:#F0C;">2</li>
+                    <li style="background:#0CF;">3</li>
+                    <li style="background:#F0C;">4</li>
+                    <li style="background:#0FC;">5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
