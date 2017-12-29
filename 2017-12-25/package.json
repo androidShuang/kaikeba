@@ -1,0 +1,14 @@
+{
+  "name": "2017-12-25",
+  "version": "1.0.0",
+  "description": "",
+  "main": "buffer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "uuid": "^3.1.0"
+  }
+}
