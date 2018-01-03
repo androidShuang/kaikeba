@@ -1,10 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 let server = express();
 
-server.get('/login',(req,res)=>{
-    res.send("hello world");
-});
+server.use(bodyParser.urlencoded({extended:false}));
 
-let app = server.listen(9900,()=>{
-    console.log(app.address().address);
-});
+server.post('/aaa',(req,res)=>{
+    console.log(req.body);
+    
+})
+
+server.use(express.static('./www/'));
+
+server.listen(9900);
