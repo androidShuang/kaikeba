@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./componedts/header.ejs') %>
+    <table border="1" width=100%>
+        <thead>
+            <tr>
+                <th width="200">ID</th>
+                <th>用户名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% user.forEach((json,index)=>{ -%>
+                <% if(index==user.length-1){ -%>
+                    <tr class="last">
+                <% }else {-%>
+                    <tr>
+                <% }-%>
+                    <td><%= json.uuid -%></td>
+                    <td><%= json.username -%></td>
+            <% }) -%>
+        </tbody>
+    </table>
+    <%- foot %>
+</body>
+</html>
