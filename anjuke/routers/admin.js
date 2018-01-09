@@ -68,3 +68,56 @@ router.get('/house',(req,res)=>{
         }
     })
 });
+
+router.post('/house',(req,res)=>{
+
+    let aImagePath = [];
+    let aImgRealPath = [];
+
+    req.body['sale_time'] = Math.floor(new Date(req.body['sale_time']).getTime()/1000);
+    req.body['submit_time'] = Math.floor(new Date(req.body['submit_time']).getTime()/1000);
+
+
+    for(let i=0;i<req.files.length;i++){
+        switch (req.files[i].fieldname){
+            case 'main_img':
+                req.body['main_img_path'] = req.files[i].filename;
+                req.body['main_img_real_path'] = req.files[i].path.replace(/\\/g,'\\\\');
+                break;
+            case 'img':
+                aImagePath.push(req.files[i].filename);
+                aImgRealPath.push(req.files[i].path.replace(/\\/g,'\\\\'));
+                break;
+            case 'property_img':
+                req.body['property_img_paths']=req.files[i].filename;
+                req.body['property_img_real_paths']=req.files[i].path.replace(/\\/g, '\\\\');
+                break;
+        }
+    };
+
+    req.body['ID'] = common.uuid();
+    req.body['admin_ID'] = req.admin_ID;
+    
+    req.body['img_paths'] = aImagePath.join(',');
+    req.body['img_real_paths'] = aImgRealPath.join(',');
+    
+    let arrFiled = [];
+    let arrValue = [];
+    
+    for(let name in req.body){
+        arrFiled.push(name);
+        arrValue.push(req.body[name]);
+    }
+    
+    let sql = `INSERT INTO house_table (${arrFiled.join(',')}) VALUES('${arrValue.join("','")}')`;
+    
+    console.log(sql);
+    
+    req.db.query(sql,err=>{
+        if(err){
+            res.sendStatus(500);
+        }else{
+            res.redirect('/admin/house');
+        }
+    });
+});

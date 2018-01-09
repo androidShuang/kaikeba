@@ -21,10 +21,10 @@
         <div class="navbar navbar-default">
           <form class="navbar-form navbar-left" action="index.html" method="post">
             <div class="form-group" style="margin-right:20px;">
-              <button type="button" class="btn btn-default glyphicon glyphicon-plus">新建</button>
+              <button type="button" id="btn_add" class="btn btn-default glyphicon glyphicon-plus">新建</button>
             </div>
             <div class="form-group" style="margin-right:20px;">
-              <button type="button" class="btn btn-default glyphicon glyphicon-remove">删除</button>
+              <button type="button" id="btn_del" class="btn btn-default glyphicon glyphicon-remove">删除</button>
             </div>
             <div class="form-group">
               <input type="search" class="form-control">
@@ -89,64 +89,84 @@
       </div>
     </div>
 
-    <div class="shadow"></div>
-    <div class="panel panel-default add_modify_dialog">
+    <div id="shadow" class="shadow"></div>
+    <div id="dialog" class="panel panel-default add_modify_dialog">
       <div class="panel-heading">
         <h3 class="panel-title">
           添加/修改
-          <a href="#" class="pull-right glyphicon glyphicon-remove"></a>
+          <a href="#" id="btn_close" class="pull-right glyphicon glyphicon-remove"></a>
         </h3>
       </div>
       <div class="panel-body" style="overflow:auto; height:460px;">
-        <form class="form-horizontal" method="post">
-          <div class="form-group">
-            <label for="id1" class="col-sm-2 control-label">数据1</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="id1" placeholder="请输入数据...">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="id2" class="col-sm-2 control-label">数据2</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="id2" placeholder="请输入数据...">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="id3" class="col-sm-2 control-label">数据3</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" rows="10" id="id3" placeholder="请输入数据..."></textarea>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="id4" class="col-sm-2 control-label">选择</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="id4">
-                <option value="1">数据1</option>
-                <option value="2">数据2</option>
-                <option value="3">数据3</option>
-                <option value="4">数据4</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="id4" class="col-sm-2 control-label">文件</label>
-            <div class="col-sm-10">
-              <input type="file" class="form-control">
-            </div>
-          </div>
+        <form class="form-horizontal" action="?" enctype="multipart/form-data" method="post">
+          <div id="form_contrainer"></div>
 
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
               <button type="submit" class="btn btn-primary">提交</button>
-              <button type="button" class="btn btn-danger">取消</button>
+              <button type="button" id="btn_cancel" class="btn btn-danger">取消</button>
             </div>
           </div>
         </form>
       </div>
     </div>
+
+
+    <script>
+      const $=document.querySelectorAll.bind(document);
+
+      //打开开关
+      let oShadow = $('#shadow')[0];
+      let oDialog = $('#dialog')[0];
+      let oBtnAdd = $('#btn_add')[0];
+      let oBtnClose = $('#btn_close')[0];
+      let oBtnCancel = $('#btn_cancel')[0];
+      //动态生成表单
+      let oFormContainer=$('#form_contrainer')[0];
+
+      oBtnAdd.onclick = function () {
+          oShadow.style.display='block';
+          oDialog.style.display='block';
+      };
+
+      oBtnCancel.onclick = oBtnClose.onclick = function () {
+          oShadow.style.display = 'none';
+          oDialog.style.display = 'none';
+      };
+
+      const form_inputs = [
+          {type: 'text', name: 'title', title: '标题'},
+          {type: 'text', name: 'sub_title', title: '副标题'},
+          {type: 'text', name: 'position_main', title: '主位置'},
+          {type: 'text', name: 'position_second', title: '副位置'},
+          {type: 'number', name: 'ave_price', title: '均价'},
+          {type: 'number', name: 'area_min', title: '最小面积'},
+          {type: 'number', name: 'area_max', title: '最大面积'},
+          {type: 'tel', name: 'tel', title: '电话'},
+          {type: 'date', name: 'sale_time', title: '开盘日期'},
+          {type: 'date', name: 'submit_time', title: '交房日期'},
+          {type: 'text', name: 'building_type', title: '建筑类型'},
+          {type: 'file', name: 'main_img', title: '大图'},
+          {type: 'file', name: 'img', title: '小图(多选)', multiple: true},
+          {type: 'text', name: 'property_types', title: '户型'},
+          {type: 'file', name: 'property_img', title: '户型图'},
+      ]
+
+      for(let i=0;i<form_inputs.length;i++){
+          let data = form_inputs[i];
+          let oDiv = document.createElement('div');
+          oDiv.className = 'form-group';
+          oDiv.innerHTML=
+              `
+              <label for="id${i}" class="col-sm-2 control-lable">${data.title}</label>
+              <div class="col-sm-10">
+                    <input type="${data.type}" ${data.multiple?'multiple':''} class="form-control" name="${data.name}" id="id${i}" placeholder="请输入${data.title}..."></input>
+              </div>
+              `;
+          oFormContainer.appendChild(oDiv);
+      }
+
+    </script>
+
   </body>
 </html>
