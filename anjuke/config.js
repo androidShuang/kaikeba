@@ -6,9 +6,9 @@ module.exports = {
     port:9900,
     //mysql
     mysql_port:3306,
-    mysql_host:'localhost',
+    mysql_host:'47.92.28.56',
     mysql_user:'root',
-    mysql_password:'',
+    mysql_password:'19860909',
     mysql_dbname:'an_ju_ke',
 
     //超级管理员

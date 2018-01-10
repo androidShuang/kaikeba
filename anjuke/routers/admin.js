@@ -4,6 +4,7 @@
 const express = require('express');
 const config = require('../config');
 const common = require('../libs/common');
+const fs = require('fs');
 
 let router = express.Router();
 module.exports = router;
@@ -26,6 +27,7 @@ router.post('/login',(req,res,next)=>{
     if(username==config.root_username){
         if(common.md5(password)==config.root_password){
             console.log('超级管理员已经登录');
+            // req.admin_ID=data[0]['admin_ID'];
             req.session['admin_ID']='1';
             res.redirect('/admin/');
         }else{
@@ -111,8 +113,6 @@ router.post('/house',(req,res)=>{
     
     let sql = `INSERT INTO house_table (${arrFiled.join(',')}) VALUES('${arrValue.join("','")}')`;
     
-    console.log(sql);
-    
     req.db.query(sql,err=>{
         if(err){
             res.sendStatus(500);
@@ -120,4 +120,49 @@ router.post('/house',(req,res)=>{
             res.redirect('/admin/house');
         }
     });
+});
+
+router.get('/house/delete',(req,res)=>{
+    let ID = req.query['id'];
+    let sql = `SELECT * FROM house_table WHERE ID='${ID}'`;
+    req.db.query(sql,(err,data)=>{
+        if(err){
+            res.sendStatus(500);
+            console.log(err);
+        }else if(data.length==0){
+            res.sendStatus(404,'no this data');
+        }else{
+            let arr = [];
+            arr.push(data[0]['main_img_real_path']);
+            data[0]['img_real_paths'].split(',').forEach(item=>{
+                arr.push(item);
+            });
+            data[0]['property_img_real_paths'].split(',').forEach(item=>{
+                arr.push(item);
+            });
+            
+            let complete = 0;
+            arr.forEach(item=>{
+                fs.unlink(item,err=>{
+                    if(err){
+                        res.sendStatus(500);
+                    }else{
+                        complete++;
+                        if(complete==arr.length){
+                            req.db.query(`DELETE FROM house_table WHERE ID='${ID}'`,(err)=>{
+                                if(err){
+                                    console.log(err);
+                                    res.sendStatus(500);
+                                }else{
+                                    res.redirect('/admin/house');
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+            
+        }
+    });
+    
 });
