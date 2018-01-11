@@ -19,7 +19,7 @@
       </div>
       <div class="page-content">
         <div class="navbar navbar-default">
-          <form class="navbar-form navbar-left" action="index.html" method="post">
+          <form class="navbar-form navbar-left" action="?" method="get">
             <div class="form-group" style="margin-right:20px;">
               <button type="button" id="btn_add" class="btn btn-default glyphicon glyphicon-plus">新建</button>
             </div>
@@ -27,8 +27,8 @@
               <button type="button" id="btn_del" class="btn btn-default glyphicon glyphicon-remove">删除</button>
             </div>
             <div class="form-group">
-              <input type="search" class="form-control">
-              <button type="button" class="btn btn-default">搜索</button>
+              <input type="search" class="form-control" name="keyword" value="<%=keyword%>">
+              <button type="submit" class="btn btn-default">搜索</button>
             </div>
           </form>
         </div>
@@ -39,11 +39,25 @@
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+              <%
+              let start=cur_page-(show_page_count-1)/2;
+              let end=cur_page+(show_page_count-1)/2;
+
+              if(start<1){
+                start=1;
+              }
+              if(end>page_count){
+                end=page_count;
+              }
+
+              for(let page=start;page<=end;page++){
+              %>
+              <% if(page==cur_page){ %>
+            <li><a href="?page=<%=page%>">[<%=page%>]</a></li>
+              <% }else{ %>
+            <li><a href="?page=<%=page%>"><%=page%></a></li>
+              <% } %>
+              <% } %>
             <li>
               <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -71,7 +85,7 @@
             <tr>
               <td>
                 <label>
-                  <input type="checkbox">
+                  <input type="checkbox" name="ID_check" value="<%=json.ID%>">
                   <%=json.ID%>
                 </label>
               </td>
@@ -113,7 +127,7 @@
 
 
     <script>
-      const $=document.querySelectorAll.bind(document);
+//      const $=document.querySelectorAll.bind(document);
 
       //打开开关
       let oShadow = $('#shadow')[0];
@@ -164,6 +178,30 @@
               </div>
               `;
           oFormContainer.appendChild(oDiv);
+      }
+
+      //删除
+      let obtnDeleteBat = $('#btn_del')[0];
+
+      let aCheck=Array.from(document.getElementsByName('ID_check'));
+
+
+      obtnDeleteBat.onclick = function(){
+          let arr = [];
+          console.log(aCheck);
+          aCheck.forEach(ch=>{
+              if(ch.checked){
+                  arr.push(ch.value);
+              }
+          });
+          if(arr.length==0){
+              alert('请选择有奥删除的东西');
+          }else{
+              let url = `/admin/house/delete?id=${encodeURIComponent(arr.join(','))}`;
+              if(confirm(`您真的要删除这${arr.length}条数据吗?`)){
+                  window.location = url;
+              }
+          }
       }
 
     </script>

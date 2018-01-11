@@ -3,7 +3,7 @@
  */
 module.exports = {
     //端口
-    port:9900,
+    port:64029,
     //mysql
     mysql_port:3306,
     mysql_host:'47.92.28.56',
