@@ -93,7 +93,7 @@
               <td><%=json.ave_price%></td>
               <td><%=json.tel%></td>
               <td>
-                <a href="javascript:;">编辑</a>
+                <a href="javascript:;" onclick="mode_data('<%=json.ID%>')">编辑</a>
                 <a href="/admin/house/delete?id=<%=json.ID %>" onclick="return confirm('你确定删除这个房屋信息吗？删除不可撤销')">删除</a>
               </td>
             </tr>
@@ -117,6 +117,8 @@
 
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
+              <input type="hidden" id="is_mod" name="is_mod" value="false">
+              <input type="hidden" id="old_id" name="old_id" value="">
               <button type="submit" class="btn btn-primary">提交</button>
               <button type="button" id="btn_cancel" class="btn btn-danger">取消</button>
             </div>
@@ -128,6 +130,26 @@
 
     <script>
 //      const $=document.querySelectorAll.bind(document);
+      function mode_data(id){
+        $.ajax({
+            url:'/admin/house/get_data',
+            data:{id},
+            dataType:'json',
+            success(json){
+                console.log(json);
+                oShadow.style.display='block';
+                oDialog.style.display='block';
+
+                createForm(json);
+                $('#is_mod')[0].value="true";
+                $('#old_id')[0].value=id;
+
+            },
+            error(err){
+                alert('数据没找到，请刷新重试');
+            }
+          });
+      }
 
       //打开开关
       let oShadow = $('#shadow')[0];
@@ -135,12 +157,12 @@
       let oBtnAdd = $('#btn_add')[0];
       let oBtnClose = $('#btn_close')[0];
       let oBtnCancel = $('#btn_cancel')[0];
-      //动态生成表单
-      let oFormContainer=$('#form_contrainer')[0];
 
       oBtnAdd.onclick = function () {
           oShadow.style.display='block';
           oDialog.style.display='block';
+          createForm();
+          $('#is_mod')[0].value="false";
       };
 
       oBtnCancel.onclick = oBtnClose.onclick = function () {
@@ -148,36 +170,57 @@
           oDialog.style.display = 'none';
       };
 
-      const form_inputs = [
-          {type: 'text', name: 'title', title: '标题'},
-          {type: 'text', name: 'sub_title', title: '副标题'},
-          {type: 'text', name: 'position_main', title: '主位置'},
-          {type: 'text', name: 'position_second', title: '副位置'},
-          {type: 'number', name: 'ave_price', title: '均价'},
-          {type: 'number', name: 'area_min', title: '最小面积'},
-          {type: 'number', name: 'area_max', title: '最大面积'},
-          {type: 'tel', name: 'tel', title: '电话'},
-          {type: 'date', name: 'sale_time', title: '开盘日期'},
-          {type: 'date', name: 'submit_time', title: '交房日期'},
-          {type: 'text', name: 'building_type', title: '建筑类型'},
-          {type: 'file', name: 'main_img', title: '大图'},
-          {type: 'file', name: 'img', title: '小图(多选)', multiple: true},
-          {type: 'text', name: 'property_types', title: '户型'},
-          {type: 'file', name: 'property_img', title: '户型图'},
-      ]
+      function createForm(old_data={}){
+          //动态生成表单
+          let oFormContainer=$('#form_contrainer')[0];
+          oFormContainer.innerHTML='';
 
-      for(let i=0;i<form_inputs.length;i++){
-          let data = form_inputs[i];
-          let oDiv = document.createElement('div');
-          oDiv.className = 'form-group';
-          oDiv.innerHTML=
-              `
+          const form_inputs = [
+              {type: 'text', name: 'title', title: '标题'},
+              {type: 'text', name: 'sub_title', title: '副标题'},
+              {type: 'text', name: 'position_main', title: '主位置'},
+              {type: 'text', name: 'position_second', title: '副位置'},
+              {type: 'number', name: 'ave_price', title: '均价'},
+              {type: 'number', name: 'area_min', title: '最小面积'},
+              {type: 'number', name: 'area_max', title: '最大面积'},
+              {type: 'tel', name: 'tel', title: '电话'},
+              {type: 'date', name: 'sale_time', title: '开盘日期'},
+              {type: 'date', name: 'submit_time', title: '交房日期'},
+              {type: 'text', name: 'building_type', title: '建筑类型'},
+              {type: 'file', name: 'main_img', title: '大图'},
+              {type: 'file', name: 'img', title: '小图(多选)', multiple: true},
+              {type: 'text', name: 'property_types', title: '户型'},
+              {type: 'file', name: 'property_img', title: '户型图'},
+          ]
+
+          for(let i=0;i<form_inputs.length;i++){
+              let data = form_inputs[i];
+              let oDiv = document.createElement('div');
+              oDiv.className = 'form-group';
+              oDiv.innerHTML=
+                  `
               <label for="id${i}" class="col-sm-2 control-lable">${data.title}</label>
               <div class="col-sm-10">
-                    <input type="${data.type}" ${data.multiple?'multiple':''} class="form-control" name="${data.name}" id="id${i}" placeholder="请输入${data.title}..."></input>
+                    <input type="${data.type}" ${data.multiple?'multiple':''} class="form-control" name="${data.name}" id="id${i}" placeholder="请输入${data.title}..." value="${old_data[data.name]||''}"></input>
               </div>
               `;
-          oFormContainer.appendChild(oDiv);
+              oFormContainer.appendChild(oDiv);
+
+              //单独处理时间
+              if(data.type=='date'){
+
+                  function toDou(n){
+                      return (parseInt(n)>=10)?(''+n):('0'+n);
+                  }
+                  if(old_data[data.name] && old_data[data.name]!='0'){
+                      let oDate=new Date(old_data[data.name]*1000);
+                      let input=document.getElementById(`id${i}`);
+
+                      input.value=oDate.getFullYear()+'-'+toDou(oDate.getMonth()+1)+'-'+toDou(oDate.getDate());
+                  }
+              }
+
+          }
       }
 
       //删除
